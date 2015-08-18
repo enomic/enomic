@@ -12,6 +12,9 @@ var md = new Remarkable();
 var app = express();
 var gh_oauth_token = process.env.GITHUB_OAUTH_TOKEN;
 
+// express config
+app.use(express.static('public'));
+
 function makePrComment(number, body, cb) {
   request
     .post('https://api.github.com/repos/enomic/enomic/issues/'+number+'/comments?access_token='+gh_oauth_token)
@@ -40,10 +43,12 @@ function getPr(number, cb) {
 
 app.set('port', (process.env.PORT || 5000));
 
-var readMeMd = fs.readFileSync(__dirname + '/ReadMe.md', {encoding: 'utf8'})
+var readMeMd   = fs.readFileSync(__dirname + '/ReadMe.md', {encoding: 'utf8'});
 var readMeHtml = md.render(readMeMd);
+var indexHtml  = fs.readFileSync(__dirname + '/public/layout.html', {encoding: 'utf8'});
+
 app.get('/', function(req, res) {
-  res.send(readMeHtml);
+  res.send(indexHtml.replace('{yield}', readMeHtml));
 });
 
 var docList = fs.readdirSync(__dirname + '/docs');
