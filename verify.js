@@ -5,16 +5,18 @@ var path = require('path');
 var FS_ENCODING = {encoding: 'utf8'};
 
 function verify(commitId, signature, logger) {
-  var verifier = crypto.createVerify('RSA-SHA256');
-  verifier.update(commitId);
   for (var i = 0; i < adminIds.length; i++) {
+    var verifier = crypto.createVerify('RSA-SHA256');
+    verifier.update(commitId);
     var adminId = adminIds[i];
-    logger.log(commitId, signature, adminId);
+    if (logger != null) {
+      logger.log(commitId,  signature, adminId);
+    }
     try {
       if (verifier.verify(new Buffer(adminId), signature, 'hex')) {
         return adminId;
       }
-    } catch (e) {}
+    } catch (e) { console.error (e);}
   }
   return false;
 }
