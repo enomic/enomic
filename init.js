@@ -57,6 +57,13 @@ var secretKeyFile = process.env.ENOMIC_SECRET_KEY || path.join(getUserHome(), '.
 var publicKeyFile = process.env.ENOMIC_PUBLIC_KEY || path.join(getUserHome(), '.enomic_public_key');
 
 createKeyPair(function(err, secretKey, publicKey) {
+
+  if (err != null) {
+    console.log ("Ran into an error: ");
+    console.log(err);
+    return;
+  }
+  
   fs.writeFileSync(secretKeyFile, secretKey, {encoding: 'utf8'});
   fs.writeFileSync(publicKeyFile, publicKey, {encoding: 'utf8'});
   console.log('===============================================');
