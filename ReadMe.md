@@ -36,7 +36,7 @@ To become a hero:
 - Run `node init.js` to generate your key pair
 - Introduce yourself in a PR that adds your public key to the `heroIds.txt` file
 
-To sign code and get it deployed:
+An existing Hero must then:
 
 - Get the pull request commit hash
 - Sign the hash: `node sign.js <commit_hash>`
