@@ -5,6 +5,7 @@
     var request = require('superagent');
     var verify = require('../verify');
     var Logger = require('../Logger');
+    var bodyParser = require('body-parser');
     
     var mergePr = function (number, cb) {
       request
