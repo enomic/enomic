@@ -10,6 +10,9 @@ var md = new Remarkable();
 var app = express();
 var gh_oauth_token = process.env.GITHUB_OAUTH_TOKEN;
 
+var controller = require('./controllers');
+
+controller.init(app);
 
 app.set('port', (process.env.PORT || 5000));
 
