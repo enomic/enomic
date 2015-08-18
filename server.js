@@ -4,7 +4,7 @@ var fs = require('fs');
 var Remarkable = require('remarkable');
 var request = require('superagent');
 var verify = require('./verify');
-var Logger = require('./logger');
+var Logger = require('./Logger');
 
 var md = new Remarkable();
 var app = express();
