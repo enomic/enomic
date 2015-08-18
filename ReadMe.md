@@ -1,5 +1,3 @@
-**Well, it seems github has [hidden enomic from the public](http://i.imgur.com/gYfLv0H.png)**, because.. um, we were using their API? I've asked to be re-enabled and hopefully we can continue playing soon
-
 # enomic- A game of hacking heroes and villains
 
 A weekend hack inspired by the [nomic game](http://legacy.earlham.edu/~peters/nomic.htm) and some of the comments on last week's [hacker news post](https://news.ycombinator.com/item?id=10056705). See the [code on Github](https://github.com/enomic/enomic).
