@@ -68,17 +68,17 @@ app.post('/githubActivityHook/:secret', bodyParser.json(), function(req, res) {
     })
   }
   if (process.env.GITHUB_HOOK_SECRET !== req.params.secret) {
-    return end();
+    return res.send();
   }
   var commentBody = req.body.comment && req.body.comment.body;
   if (!commentBody) {
     // this was probably another event that we care less about
-    return end();
+    return res.send();
   }
   var match = commentBody.match(/#approve\s([^\s]*)/);
   if (!match || !match[1]) {
     // comment did not have the #approve hashtag
-    return end();
+    return res.send();
   }
   var signature = match[1];
   getPr(prNumber, function(err, pr) {
