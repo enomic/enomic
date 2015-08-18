@@ -12,6 +12,7 @@
   "dependencies": {
     "body-parser": "^1.13.3",
     "express": "^4.13.3",
+    "remarkable": "^1.6.0",
     "superagent": "^1.3.0"
   }
 }
