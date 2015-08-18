@@ -1,10 +1,13 @@
 // controllers/githubController.js
 
+var gh_oauth_token = process.env.GITHUB_OAUTH_TOKEN;
+
 (function (githubController) {
     
     var request = require('superagent');
     var verify = require('../verify');
     var Logger = require('../Logger');
+    var bodyParser = require('body-parser');
     
     var mergePr = function (number, cb) {
       request
