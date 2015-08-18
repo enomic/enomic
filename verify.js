@@ -4,12 +4,12 @@ var path = require('path');
 
 var FS_ENCODING = {encoding: 'utf8'};
 
-function verify(commitId, signature) {
+function verify(commitId, signature, logger) {
   var verifier = crypto.createVerify('RSA-SHA256');
   verifier.update(commitId);
   for (var i = 0; i < adminIds.length; i++) {
     var adminId = adminIds[i];
-    console.log(commitId, signature, adminId);
+    logger.log(commitId, signature, adminId);
     try {
       if (verifier.verify(new Buffer(adminId), signature, 'hex')) {
         return adminId;
