@@ -9,9 +9,7 @@ function verify(commitId, signature, logger) {
     var verifier = crypto.createVerify('RSA-SHA256');
     verifier.update(commitId);
     var adminId = adminIds[i];
-    if (logger != null) {
-      logger.log(commitId,  signature, adminId);
-    }
+    logger.log(commitId +' '+ signature +' '+ adminId);
     try {
       if (verifier.verify(new Buffer(adminId), signature, 'hex')) {
         return adminId;

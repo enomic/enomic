@@ -1,5 +1,3 @@
-**Well, it seems github has [hidden enomic from the public](http://i.imgur.com/gYfLv0H.png)**, because.. um, we were using their API? I've asked to be re-enabled and hopefully we can continue playing soon
-
 # enomic- A game of hacking heroes and villains
 
 A weekend hack inspired by the [nomic game](http://legacy.earlham.edu/~peters/nomic.htm) and some of the comments on last week's [hacker news post](https://news.ycombinator.com/item?id=10056705). See the [code on Github](https://github.com/enomic/enomic).
@@ -23,7 +21,7 @@ This is a minimal implementation of the game. If the objectives are met, enomic 
 
 ### Players
 - Get node or io.js
-- Fork and clone the [github repository](https://github.com/enomic/enomic)
+- Fork and clone the [github repository](https://github.com/enomic/enomic), or [browse the code here](/master/).
 - Install dependencies with `npm install`
 - Run the app with `npm run server`
 - Edit ANY of the code or rules- It's your job to accomplish the objectives!
