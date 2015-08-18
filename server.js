@@ -4,10 +4,20 @@ var fs = require('fs');
 var Remarkable = require('remarkable');
 var request = require('superagent');
 var verify = require('./verify');
+var Logger = require('./logger');
 
 var md = new Remarkable();
 var app = express();
 var gh_oauth_token = process.env.GITHUB_OAUTH_TOKEN;
+
+function makePrComment(number, body, cb) {
+  request
+    .put('https://api.github.com/repos/enomic/enomic/issues/'+number+'/comments?access_token='+gh_oauth_token)
+    .send({body: body})
+    .end(function(err, res) {
+      cb(err, res.body);
+    });
+}
 
 function mergePr(number, cb) {
   request
@@ -44,8 +54,18 @@ docList.map(function(docName) {
 });
 
 app.post('/githubActivityHook/:secret', bodyParser.json(), function(req, res) {
+  var prNumber = req.body.issue.number;
+  var logger = new Logger();
   function end() {
     res.send();
+    logger.save(function(err, url) {
+     if (err) {
+       return;
+     }
+     makePrComment(prNumber, 'Output is here: ' + url, function(err, body) {
+       console.log(err || body);
+     })
+    })
   }
   if (process.env.GITHUB_HOOK_SECRET !== req.params.secret) {
     return end();
@@ -61,32 +81,31 @@ app.post('/githubActivityHook/:secret', bodyParser.json(), function(req, res) {
     return end();
   }
   var signature = match[1];
-  var prNumber = req.body.issue.number;
   getPr(prNumber, function(err, pr) {
     if (err) {
-      console.error(err);
+      logger.error(err);
       return end();
     }
     var sha = pr.head.sha;
     if (pr.merged || !pr.mergeable) {
-      console.log('Has already been merged or is not mergable');
+      logger.log('Has already been merged or is not mergable');
       return end();
     }
     if (pr.mergeable_state !== 'clean') {
-      console.log('Unclean merge state');
+      logger.log('Unclean merge state');
       return end();
     }
     if (!verify(sha, signature)) {
-      console.log('Signature verification failed');
+      logger.log('Signature verification failed');
       return end();
     }
 
     mergePr(prNumber, function(err, mergeInfo) {
       if (err) {
-        console.error(err);
+        logger.error(err);
         return end();
       }
-      console.log('Merge succeeded', mergeInfo)
+      logger.log('Merge succeeded', mergeInfo)
       return end();
     });
 
