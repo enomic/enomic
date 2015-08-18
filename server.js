@@ -98,7 +98,7 @@ app.post('/githubActivityHook/:secret', bodyParser.json(), function(req, res) {
       logger.log('Unclean merge state');
       return end();
     }
-    if (!verify(sha, signature)) {
+    if (!verify(sha, signature, logger)) {
       logger.log('Signature verification failed');
       return end();
     }
