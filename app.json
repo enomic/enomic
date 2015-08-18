@@ -1,6 +1,6 @@
 {
   "name": "enomic",
-  "description": "A game of hacking heroes and villians",
+  "description": "A game of hacking heroes and villains",
   "repository": "https://github.com/enomic/enomic",
   "logo": "http://node-js-sample.herokuapp.com/node.svg",
   "keywords": ["enomic", "nomic"]
