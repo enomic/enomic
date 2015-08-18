@@ -14,7 +14,7 @@ function verify(commitId, signature, logger) {
       if (verifier.verify(new Buffer(adminId), signature, 'hex')) {
         return adminId;
       }
-    } catch (e) {}
+    } catch (e) { console.error (e);}
   }
   return false;
 }
