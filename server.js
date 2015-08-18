@@ -3,10 +3,13 @@ var express = require('express');
 var fs = require('fs');
 var Remarkable = require('remarkable');
 var request = require('superagent');
+var verify = require('./verify');
+var Logger = require('./Logger');
 
 var md = new Remarkable();
 var app = express();
 var gh_oauth_token = process.env.GITHUB_OAUTH_TOKEN;
+
 
 app.set('port', (process.env.PORT || 5000));
 
