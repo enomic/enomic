@@ -54,6 +54,9 @@ docList.map(function(docName) {
 });
 
 app.post('/githubActivityHook/:secret', bodyParser.json(), function(req, res) {
+  if (!req.body || !req.body.issue) {
+    return res.send();
+  }
   var prNumber = req.body.issue.number;
   var logger = new Logger();
   function end() {
