@@ -1,5 +1,7 @@
 // controllers/githubController.js
 
+var gh_oauth_token = process.env.GITHUB_OAUTH_TOKEN;
+
 (function (githubController) {
     
     var request = require('superagent');
