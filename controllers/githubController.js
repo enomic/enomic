@@ -43,13 +43,18 @@ var gh_oauth_token = process.env.GITHUB_OAUTH_TOKEN;
           }
           var prNumber = req.body.issue.number;
           var logger = new Logger();
-          function end() {
+          function end(message) {
             res.send();
             logger.save(function(err, url) {
              if (err) {
                return;
              }
-             makePrComment(prNumber, 'Output is here: ' + url, function(err, body) {
+
+             var comment = message ? message + '\n\n' : '';
+
+             comment += 'Output is here: ' + url;
+
+             makePrComment(prNumber, comment, function(err, body) {
                console.log(err || body);
              })
             })
