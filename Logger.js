@@ -8,19 +8,25 @@ var Logger = module.exports = function(options) {
 
  var logs = [];
 
- this.log = function log(x) {
-  logs.push(x);
-  console.log(x);
+ this.log = function log() {
+  for (var i = 0; i < arguments.length; i++) {
+   logs.push(arguments[i]);
+   console.log(arguments[i]);
+  }
  }
 
- this.error = function error(x) {
-  logs.push(x);
-  console.error(x);
+ this.error = function error() {
+  for (var i = 0; i < arguments.length; i++) {
+   logs.push(arguments[i]);
+   console.error(arguments[i]);
+  }
  }
 
- this.warn = function warn(x) {
-  logs.push(x);
-  console.warn(x);
+ this.warn = function warn() {
+  for (var i = 0; i < arguments.length; i++) {
+   logs.push(arguments[i]);
+   console.warn(arguments[i]);
+  }
  }
 
  this.save = function save(cb) {
