@@ -1,0 +1,8 @@
+body {
+  background: #fff;
+}
+
+nav.navbar ul.nav li.github {
+  padding-top: 15px;
+  padding-left: 20px;
+}
