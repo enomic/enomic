@@ -67,7 +67,7 @@ var gh_oauth_token = process.env.GITHUB_OAUTH_TOKEN;
             // this was probably another event that we care less about
             return res.send();
           }
-          var match = commentBody.match(/#approve\s([^\s]*)/);
+          var match = commentBody.match(/#approve\s([^\s]{80,})/);
           if (!match || !match[1]) {
             // comment did not have the #approve hashtag
             return res.send();
