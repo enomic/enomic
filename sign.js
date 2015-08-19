@@ -19,4 +19,4 @@ var signer = crypto.createSign('RSA-SHA256');
 signer.update(commitId);
 var signature = signer.sign(secretKey, 'hex');
 
-console.log(signature);
+console.log('#approve '+signature);
