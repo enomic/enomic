@@ -12,21 +12,10 @@ var md = new Remarkable();
 var app = express();
 var gh_oauth_token = process.env.GITHUB_OAUTH_TOKEN;
 
-<<<<<<< HEAD
 // express config
 app.use(express.static('public'));
 
-function makePrComment(number, body, cb) {
-  request
-    .post('https://api.github.com/repos/enomic/enomic/issues/'+number+'/comments?access_token='+gh_oauth_token)
-    .send({body: body})
-    .end(function(err, res) {
-      cb(err, res.body);
-    });
-}
-=======
 var controller = require('./controllers');
->>>>>>> enomic/master
 
 controller.init(app);
 
