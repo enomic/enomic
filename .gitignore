@@ -1,2 +1,13 @@
 node_modules
 .env
+
+# vim temporary files
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+# kdiff
+*.orig
