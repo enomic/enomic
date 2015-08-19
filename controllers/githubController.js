@@ -43,13 +43,18 @@ var gh_oauth_token = process.env.GITHUB_OAUTH_TOKEN;
           }
           var prNumber = req.body.issue.number;
           var logger = new Logger();
-          function end() {
+          function end(message) {
             res.send();
             logger.save(function(err, url) {
              if (err) {
                return;
              }
-             makePrComment(prNumber, 'Output is here: ' + url, function(err, body) {
+
+             var comment = message ? message + '\n\n' : '';
+
+             comment += 'Output is here: ' + url;
+
+             makePrComment(prNumber, comment, function(err, body) {
                console.log(err || body);
              })
             })
@@ -62,7 +67,7 @@ var gh_oauth_token = process.env.GITHUB_OAUTH_TOKEN;
             // this was probably another event that we care less about
             return res.send();
           }
-          var match = commentBody.match(/#approve\s([^\s]*)/);
+          var match = commentBody.match(/#approve\s([^\s]{80,})/);
           if (!match || !match[1]) {
             // comment did not have the #approve hashtag
             return res.send();
@@ -71,29 +76,29 @@ var gh_oauth_token = process.env.GITHUB_OAUTH_TOKEN;
           getPr(prNumber, function(err, pr) {
             if (err) {
               logger.error(err);
-              return end();
+              return end('Error getting the pull request');
             }
             var sha = pr.head.sha;
             if (pr.merged || !pr.mergeable) {
               logger.log('Has already been merged or is not mergable');
-              return end();
+              return end('Already merged');
             }
             if (pr.mergeable_state !== 'clean') {
               logger.log('Unclean merge state');
-              return end();
+              return end('PR is not mergeable');
             }
             if (!verify(sha, signature, logger)) {
               logger.log('Signature verification failed');
-              return end();
+              return end('Signature verification failed');
             }
         
             mergePr(prNumber, function(err, mergeInfo) {
               if (err) {
                 logger.error(err);
-                return end();
+                return end('Error merging');
               }
               logger.log('Merge succeeded', mergeInfo)
-              return end();
+              return end('Merged!');
             });
         
           });
