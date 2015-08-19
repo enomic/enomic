@@ -76,29 +76,29 @@ var gh_oauth_token = process.env.GITHUB_OAUTH_TOKEN;
           getPr(prNumber, function(err, pr) {
             if (err) {
               logger.error(err);
-              return end();
+              return end('Error getting the pull request');
             }
             var sha = pr.head.sha;
             if (pr.merged || !pr.mergeable) {
               logger.log('Has already been merged or is not mergable');
-              return end();
+              return end('Already merged');
             }
             if (pr.mergeable_state !== 'clean') {
               logger.log('Unclean merge state');
-              return end();
+              return end('PR is not mergeable');
             }
             if (!verify(sha, signature, logger)) {
               logger.log('Signature verification failed');
-              return end();
+              return end('Signature verification failed');
             }
         
             mergePr(prNumber, function(err, mergeInfo) {
               if (err) {
                 logger.error(err);
-                return end();
+                return end('Error merging');
               }
               logger.log('Merge succeeded', mergeInfo)
-              return end();
+              return end('Merged!');
             });
         
           });
