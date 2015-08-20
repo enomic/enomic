@@ -21,7 +21,7 @@ This is a minimal implementation of the game. If the objectives are met, enomic 
 
 ### Players
 - Get node or io.js
-- Fork and clone the [github repository](https://github.com/enomic/enomic)
+- Fork and clone the [github repository](https://github.com/enomic/enomic), or [browse the code here](/master/).
 - Install dependencies with `npm install`
 - Run the app with `npm run server`
 - Edit ANY of the code or rules- It's your job to accomplish the objectives!
@@ -36,7 +36,7 @@ To become a hero:
 - Run `node init.js` to generate your key pair
 - Introduce yourself in a PR that adds your public key to the `heroIds.txt` file
 
-To sign code and get it deployed:
+An existing Hero must then:
 
 - Get the pull request commit hash
 - Sign the hash: `node sign.js <commit_hash>`
